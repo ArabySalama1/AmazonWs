@@ -8,10 +8,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.integrant")
+@EnableCaching
 public class AmazonwsApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AmazonwsApplication.class, args);
     }
-
 }

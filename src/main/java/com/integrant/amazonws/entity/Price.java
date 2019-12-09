@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="prices")
+@Table(name = "prices")
 public class Price implements Serializable {
     @Id
     private int id;
@@ -17,8 +17,9 @@ public class Price implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name = "item_id",nullable = false)
+    @JoinColumn(name = "item_id", nullable = false)
     private Item item;
+
     public int getId() {
         return id;
     }
@@ -50,7 +51,6 @@ public class Price implements Serializable {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
 
 
     public Item getItem() {

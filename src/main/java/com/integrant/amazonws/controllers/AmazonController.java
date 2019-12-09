@@ -21,28 +21,17 @@ public class AmazonController {
     @Autowired
     private AmazonService amazonService;
 
-    @GetMapping(path = "/cacheCustomer", produces = "application/json")
+    @GetMapping(path = "/customer", produces = "application/json")
     @ResponseBody
-    public Customer cacheCustomer() {
+    public Customer getCustomer() {
         long start = System.currentTimeMillis();
-        List<Customer> list=amazonService.cashCustomer();
+        List<Customer> list = amazonService.getCustomers();
         long end = System.currentTimeMillis();
-        System.out.println("Cache Elapsed Time is :"+ (end-start) );
+        System.out.println("Customer Elapsed Time is :" + (end - start));
         return list.get(0);
     }
 
-
-    /*@GetMapping(path = "/customer", produces = "application/json")
-    @ResponseBody
-    public String getCustomer() {
-        long start = System.currentTimeMillis();
-        List<String> list=amazonService.getCustomers();
-        long end = System.currentTimeMillis();
-        System.out.println("Customer Elapsed Time is :"+ (end-start) );
-        return list.get(0);
-    }*/
-
-    @GetMapping(path = "/customer", produces = "application/json")
+   /* @GetMapping(path = "/customer", produces = "application/json")
     @ResponseBody
     public Customer getCustomer() {
         long start = System.currentTimeMillis();
@@ -50,7 +39,7 @@ public class AmazonController {
         long end = System.currentTimeMillis();
         System.out.println("Customer Elapsed Time is :"+ (end-start) );
         return customer;
-    }
+    }*/
 
     @GetMapping(path = "/order/{id}", produces = "application/json")
     @ResponseBody

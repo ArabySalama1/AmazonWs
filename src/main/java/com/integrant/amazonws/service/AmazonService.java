@@ -9,12 +9,7 @@ import com.integrant.amazonws.entity.Item;
 import com.integrant.amazonws.entity.Order;
 import com.integrant.amazonws.entity.Price;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,47 +29,47 @@ public class AmazonService {
     @Autowired
     private PriceRepository priceRepository;
 
-    public List<Customer> cashCustomer(){
+    public List<Customer> cashCustomer() {
 
-        List<Customer> customerP= customerRepository.findAll();
+        List<Customer> customerP = customerRepository.findAll();
 
-        return  customerP;
+        return customerP;
     }
 
-    public List<String> getCustomers(){
-        Pageable pageable = PageRequest.of(0, 1000);
-        List<String> customerP= customerRepository.findCustomers(pageable);
+    public List<Customer> getCustomers() {
 
-        return  customerP;
-    }
+        List<Customer> customerP = customerRepository.findAll();
 
-
-    public Customer getCustomer(){
-
-        Optional<Customer> customerP= customerRepository.findById(1);
-
-        return  customerP.get();
+        return customerP;
     }
 
 
-    public Order getOrder(int id){
-        Optional<Order> orderOp= orderRepository.findById(id);
-        if(orderOp.isPresent())
-            return  orderOp.get();
-        return  null;
+    public Customer getCustomer() {
+
+        Optional<Customer> customerP = customerRepository.findById(1);
+
+        return customerP.get();
     }
 
-    public Item getItem(int id){
-        Optional<Item> itemOp= itemRepository.findById(id);
-        if(itemOp.isPresent())
-            return  itemOp.get();
-        return  null;
+
+    public Order getOrder(int id) {
+        Optional<Order> orderOp = orderRepository.findById(id);
+        if (orderOp.isPresent())
+            return orderOp.get();
+        return null;
     }
 
-    public Price getPrice(int id){
-        Optional<Price> priceOp= priceRepository.findById(id);
-        if(priceOp.isPresent())
-            return  priceOp.get();
-        return  null;
+    public Item getItem(int id) {
+        Optional<Item> itemOp = itemRepository.findById(id);
+        if (itemOp.isPresent())
+            return itemOp.get();
+        return null;
+    }
+
+    public Price getPrice(int id) {
+        Optional<Price> priceOp = priceRepository.findById(id);
+        if (priceOp.isPresent())
+            return priceOp.get();
+        return null;
     }
 }

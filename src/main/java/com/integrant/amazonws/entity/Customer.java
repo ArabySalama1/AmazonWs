@@ -1,17 +1,14 @@
 package com.integrant.amazonws.entity;
 
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "customers")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Customer implements Serializable {
     @Id
     private int id;
@@ -20,9 +17,9 @@ public class Customer implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer",fetch=FetchType.EAGER)
+    /*@OneToMany(mappedBy = "customer",fetch=FetchType.EAGER)
     @JsonBackReference
-    private List<Order> orders;
+    private List<Order> orders;*/
 
     public int getId() {
         return id;
@@ -56,11 +53,11 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Order> getOrders() {
+    /*public List<Order> getOrders() {
         return orders;
     }
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
+    }*/
 }
