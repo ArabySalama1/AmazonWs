@@ -1,17 +1,22 @@
 package com.integrant.amazonws.entity;
 
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
+
+
 
 @Entity
 @Table(name = "customers")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cacheable
+@Cache(region = "customer", usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Customer implements Serializable {
     @Id
     private int id;
@@ -20,9 +25,11 @@ public class Customer implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer",fetch=FetchType.EAGER)
+    @Cache(region = "customer", usage = CacheConcurrencyStrategy.READ_ONLY)
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JsonBackReference
-    private List<Order> orders;
+    private Set<Order> orders;
 
     public int getId() {
         return id;
@@ -56,11 +63,11 @@ public class Customer implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 }

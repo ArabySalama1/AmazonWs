@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "items")
@@ -18,9 +19,11 @@ public class Item implements Serializable {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-  /*  @OneToMany(mappedBy = "item",fetch=FetchType.EAGER)
+
+    //@Cache(region = "customer", usage = CacheConcurrencyStrategy.READ_ONLY)
+    @OneToMany(mappedBy = "item",fetch = FetchType.EAGER)
     @JsonBackReference
-    private List<Price> prices;*/
+    private Set<Price> prices;
 
     public int getId() {
         return id;
@@ -47,11 +50,11 @@ public class Item implements Serializable {
         this.order = order;
     }
 
-    /*public List<Price> getPrices() {
+    public Set<Price> getPrices() {
         return prices;
     }
 
-    public void setPrices(List<Price> prices) {
+    public void setPrices(Set<Price> prices) {
         this.prices = prices;
-    }*/
+    }
 }

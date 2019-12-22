@@ -1,15 +1,19 @@
 package com.integrant.amazonws.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+//@Cacheable
+//@Cache(region = "customer", usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Order implements Serializable {
     @Id
     private int id;
@@ -21,9 +25,11 @@ public class Order implements Serializable {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    /*@OneToMany(mappedBy = "order",fetch=FetchType.EAGER)
+    @Cache(region = "customer", usage = CacheConcurrencyStrategy.READ_ONLY)
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
     @JsonBackReference
-    private List<Item>items;*/
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Item> items;
 
     public int getId() {
         return id;
@@ -50,11 +56,11 @@ public class Order implements Serializable {
         this.customer = customer;
     }
 
-    /*public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
-    }*/
+    }
 }

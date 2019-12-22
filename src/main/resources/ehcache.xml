@@ -5,17 +5,27 @@
 
     <diskStore path="java.io.tmpdir/ehcache" />
 
-    <defaultCache maxEntriesLocalHeap="10000000" eternal="false"
-                  timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="300"
-                  maxEntriesLocalDisk="10000000" diskExpiryThreadIntervalSeconds="120"
+    <defaultCache maxEntriesLocalHeap="1000000000" eternal="false"
+                  timeToIdleSeconds="12000" timeToLiveSeconds="12000" diskSpoolBufferSizeMB="300"
+                  maxEntriesLocalDisk="1000000000" diskExpiryThreadIntervalSeconds="12000"
                   memoryStoreEvictionPolicy="LRU" statistics="true">
         <persistence strategy="localTempSwap" />
     </defaultCache>
 
-    <cache name="customer" maxEntriesLocalHeap="1000000" eternal="false"
-           timeToIdleSeconds="500" timeToLiveSeconds="1000">
+    <cache name="customer" maxEntriesLocalHeap="1000000000" eternal="false"
+           timeToIdleSeconds="120000" timeToLiveSeconds="12000" diskSpoolBufferSizeMB="300000"
+           maxEntriesLocalDisk="1000000000" diskExpiryThreadIntervalSeconds="12000"
+           memoryStoreEvictionPolicy="LRU" statistics="true">
         <persistence strategy="localTempSwap" />
+
     </cache>
 
+    <cache name="findAll" maxEntriesLocalHeap="1000000000" eternal="false"
+           timeToIdleSeconds="120000" timeToLiveSeconds="12000" diskSpoolBufferSizeMB="300000"
+           maxEntriesLocalDisk="1000000000" diskExpiryThreadIntervalSeconds="12000"
+           memoryStoreEvictionPolicy="LRU" statistics="true">
+        <persistence strategy="localTempSwap" />
+
+    </cache>
 
 </ehcache>

@@ -25,16 +25,57 @@ public class AmazonController {
     @ResponseBody
     public Customer cacheCustomer() {
         long start = System.currentTimeMillis();
-        List<Customer> list=amazonService.cashCustomer();
+        List<Customer> list=amazonService.cashCustomers();
         long end = System.currentTimeMillis();
         System.out.println("Cache Elapsed Time is :"+ (end-start) );
         return list.get(0);
     }
 
 
-    /*@GetMapping(path = "/customer", produces = "application/json")
+    @GetMapping(path = "/customer/name/{name}", produces = "application/json")
     @ResponseBody
-    public String getCustomer() {
+    public Customer customerByName(@PathVariable("name")String name) {
+        long start = System.currentTimeMillis();
+        Customer customer=amazonService.getCustomerByname(name);
+        long end = System.currentTimeMillis();
+        System.out.println("Cache Elapsed Time is :"+ (end-start) );
+        return customer;
+    }
+
+    @GetMapping(path = "/customer/orderId/{id}", produces = "application/json")
+    @ResponseBody
+    public Customer customerByOrderId(@PathVariable("id")int id) {
+        long start = System.currentTimeMillis();
+        Customer customer=amazonService.getCustomerByOrderId(id);
+        long end = System.currentTimeMillis();
+        System.out.println("Cache Elapsed Time is :"+ (end-start) );
+        return customer;
+    }
+
+    @GetMapping(path = "/customer/prices/count", produces = "application/json")
+    @ResponseBody
+    public Integer pricesCount() {
+        long start = System.currentTimeMillis();
+        Integer sum=amazonService.getSumOfPrices();
+        long end = System.currentTimeMillis();
+        System.out.println("Cache Elapsed Time is :"+ (end-start) );
+        return sum;
+    }
+
+
+    @GetMapping(path = "/order/{id}", produces = "application/json")
+    @ResponseBody
+    public Order getOrderId(@PathVariable("id")int id) {
+        long start = System.currentTimeMillis();
+        Order order=amazonService.getOrderById(id);
+        long end = System.currentTimeMillis();
+        System.out.println("Cache Elapsed Time is :"+ (end-start) );
+        return order;
+    }
+    //getSumOfPrices
+    /*@GetMapping(path = "/customers", produces = "application/json")
+    @ResponseBody
+    public String getCustomers() {
         long start = System.currentTimeMillis();
         List<String> list=amazonService.getCustomers();
         long end = System.currentTimeMillis();
@@ -52,11 +93,7 @@ public class AmazonController {
         return customer;
     }
 
-    @GetMapping(path = "/order/{id}", produces = "application/json")
-    @ResponseBody
-    public Order getOrder(@PathVariable("id") Integer id) {
-        return amazonService.getOrder(id);
-    }
+
 
     @GetMapping(path = "/item/{id}", produces = "application/json")
     @ResponseBody
