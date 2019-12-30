@@ -14,27 +14,20 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 
-    @Query("select distinct p.price,COUNT(c.name) from Customer c  join Order o on c.id=o.customer.id join Item i on o.id=i.order.id join Price p on i.id=p.item.id group by p.price having COUNT(c.name) in (select distinct  c.id from Customer c join Order o on c.id=o.customer.id join Item i on o.id=i.order.id join Price p on i.id=p.item.id )")
-    public List<String> findCustomers();
-
-  /*  @QueryHints(value = {
-            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
-            @QueryHint(name = "org.hibernate.cacheMode", value = "NORMAL"),
-            @QueryHint(name = "org.hibernate.cacheRegion", value = "CacheRegion")
-    })
-    List<Customer> findAll();*/
+  /*  @Query("select distinct p.price,COUNT(c.name) from Customer c  join Order o on c.id=o.customer.id join Item i on o.id=i.order.id join Price p on i.id=p.item.id group by p.price having COUNT(c.name) in (select distinct  c.id from Customer c join Order o on c.id=o.customer.id join Item i on o.id=i.order.id join Price p on i.id=p.item.id )")
+    public List<String> findCustomers();*/
 
 
     @Query("from Customer c  where c.name=?1")
-    public Customer findByCustomerc(String name);
+    Customer findByCustomerc(String name);
 
 
     @Query("from Customer c join Order o on c.id=o.customer.id")
-    public List<Customer> findByOrdero();
+    List<Customer> findByOrdero();
 
 
     //   @Query("select COUNT(p.price) from Customer c  join Order o on c.id=o.customer.id join Item i on o.id=i.order.id join Price p on i.id=p.item.id")
-    public Integer countById(int id);
+    Integer countById(int id);
 
     @QueryHints(value = {
             @QueryHint(name = "org.hibernate.cacheable", value = "true"),
@@ -42,7 +35,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             @QueryHint(name = "org.hibernate.cacheRegion", value = "findAll")
     })
     @Query("from Customer c  join fetch c.orders o join fetch o.items i join  fetch i.prices")
-    public List<Customer> finAllCustomers();
+    List<Customer> finAllCustomers();
 
 
 }

@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("from Order o join fetch o.items where o.id=?1")
-    public Order findOrderByIdCustom(int order);
+    Order findOrderByIdCustom(int order);
 }
